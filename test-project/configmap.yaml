@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-project-config
+data:
+  appsettings.json: |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Debug",
+          "Microsoft.AspNetCore": "Debug",
+          "Microsoft.AspNetCore.HttpLogging.HttpLoggingMiddleware": "Information"
+        }
+      },
+      "AllowedHosts": "*"
+    }
