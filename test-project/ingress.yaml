@@ -17,3 +17,10 @@ spec:
               name: test-project-svc
               port:
                 number: 8080
+data:
+   resource.customizations: |
+      extensions/Ingress:
+          health.lua: |
+            hs = {}
+            hs.status = "Healthy"
+            return hs
