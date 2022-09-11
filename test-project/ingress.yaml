@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: '1800'
     nginx.ingress.kubernetes.io/proxy-cookie-path: |
       / "/; Secure;"
-  name: test-porject-ingress
+  name: test-project-ingress
 spec:
   rules:
     - host: ""
