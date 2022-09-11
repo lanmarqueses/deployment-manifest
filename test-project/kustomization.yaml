@@ -10,5 +10,5 @@ nameSuffix: -development
 resources:
 - configmap.yaml
 - deployment.yaml
-- service.yaml
+- nginx-service.yaml
 - ingress.yaml
