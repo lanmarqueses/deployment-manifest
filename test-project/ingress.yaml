@@ -1,0 +1,8 @@
+  name: hello-world-demo-ingress
+spec:
+  rules:
+    - host: default
+    - host: default
+      http:
+        paths:
+        - path: /
