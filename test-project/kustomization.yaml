@@ -4,8 +4,8 @@ kind: Kustomization
 commonLabels:
   app: test-project-demo
 
-namespace: development
-nameSuffix: -development
+namespace: default
+nameSuffix: -default
 
 resources:
 - configmap.yaml
