@@ -7,7 +7,7 @@ metadata:
   name: test-project-ingress
 spec:
   rules:
-    - host:
+    - host: 127.0.0.1
       http:
         paths:
         - path: /
