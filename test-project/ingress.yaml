@@ -16,7 +16,7 @@ spec:
               name: test-project-svc
               port:
                 number: 8080
-  status:
-    loadBalancer:
-      ingress:
-        - {}
+status:
+  loadBalancer:
+    ingress:
+      - {}
