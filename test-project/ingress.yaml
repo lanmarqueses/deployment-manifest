@@ -1,9 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
   name: test-project-ingress
 spec:
   rules:
@@ -17,7 +14,3 @@ spec:
               name: test-project-svc
               port:
                 number: 8080
-status:
-  loadBalancer:
-    ingress:
-      - {}
