@@ -12,7 +12,7 @@ metadata:
   name: test-project2-ingress
 spec:
   rules:
-    - host: test-project2.sampledomain.com
+    - host: sandbox-api.gisd88.com
       http:
         paths:
         - path: /
