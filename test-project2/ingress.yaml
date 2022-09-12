@@ -12,7 +12,7 @@ metadata:
   name: test-project2-ingress
 spec:
   rules:
-    - host: argo-sandbox.gisd88.com/app
+    - host: argo-sandbox.gisd88.com
       http:
         paths:
         - path: /
