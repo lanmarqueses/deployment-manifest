@@ -4,7 +4,7 @@ metadata:
   name: test-project-ingress
 spec:
   rules:
-    - host: 
+    - host: test-project.info
       http:
         paths:
         - path: /
