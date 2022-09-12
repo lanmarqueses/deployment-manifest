@@ -8,5 +8,5 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: ""
+    app: test-project
   type: ClusterIP
