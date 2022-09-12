@@ -12,12 +12,4 @@ metadata:
   name: test-project2-ingress
 spec:
   rules:
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: test-project2-svc
-              port:
-                number: 8080
+    - http:
