@@ -10,7 +10,7 @@ metadata:
       nginx.ingress.kubernetes.io/proxy-cookie-path: |
         / "/; Secure;"
       resource.customizations: |
-        networking.k8s.io/Ingress:
+        extensions/Ingress:
            health.lua: |
            hs = {}
            hs.status = "Healthy"
