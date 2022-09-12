@@ -12,7 +12,7 @@ metadata:
   name: test-project-ingress
 spec:
   rules:
-    - host: test-project.info
+    - host: test-projects.sampledomain.com
       http:
         paths:
         - path: /
