@@ -5,3 +5,13 @@ metadata:
   name: test-project2-ingress
 spec:
   rules:
+    - host: test-project2.sampledomain.com
+        http:
+          paths:
+            - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: test-project2-svc
+                    port:
+                      number: 8080
