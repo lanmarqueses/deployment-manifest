@@ -8,7 +8,7 @@ metadata:
 spec:
   rules:
     - host:
-      http:
+      http: 172.0.0.1
         paths:
         - path: /
           pathType: Prefix
