@@ -9,6 +9,12 @@ metadata:
       nginx.ingress.kubernetes.io/proxy-read-timeout: '1800'
       nginx.ingress.kubernetes.io/proxy-cookie-path: |
         / "/; Secure;"
+      resource.customizations: |
+        networking.k8s.io/Ingress:
+          health.lua: |
+          hs = {}
+          hs.status = "Healthy"
+          return hs
   name: test-project2-ingress
 spec:
   rules:
