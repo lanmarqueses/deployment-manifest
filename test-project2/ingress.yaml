@@ -3,3 +3,4 @@ kind: Ingress
 metadata:
   annotations:
   name: test-project2-ingress
+spec:
