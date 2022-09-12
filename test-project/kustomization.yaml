@@ -11,4 +11,3 @@ resources:
 - configmap.yaml
 - deployment.yaml
 - nginx-service.yaml
-- ingress.yaml
