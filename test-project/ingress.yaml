@@ -21,3 +21,9 @@ status:
   loadBalancer:
     ingress:
       - {}
+ resource.customizations: |
+    extensions/Ingress:
+        health.lua: |
+          hs = {}
+          hs.status = "Healthy"
+          return hs
