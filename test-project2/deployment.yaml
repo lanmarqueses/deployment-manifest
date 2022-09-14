@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-project2
+  name: test-project2-default
 spec:
   selector:
     matchLabels:
-      app: test-project2
+      app: test-project2-default
   replicas: 5
   template:
     metadata:
       labels:
-        app: test-project2
+        app: test-project2-default
     spec:
       containers:
-      - name: test-project2
+      - name: test-project2-default
         image: nanajanashia/argocd-app:1.2
         ports:
         - containerPort: 8080
