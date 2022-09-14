@@ -8,9 +8,6 @@ spec:
       app: test-project2-default
   replicas: 5
   template:
-    metadata:
-      labels:
-        app: test-project2-default
     spec:
       containers:
       - name: test-project2-default
