@@ -1,16 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: test-project2
   name: test-project2
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: test-project2-default
-  replicas: 5
+      app: hello-world-demo
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
+    metadata:
+      labels:
+        app: test-project2
     spec:
       containers:
-      - name: test-project2
-        image: nanajanashia/argocd-app:1.2
+      - image: nanajanashia/argocd-app:1.2
+        imagePullPolicy: Always
+        name: test-project2
         ports:
-        - containerPort: 8080
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+        resources: {}
