@@ -8,7 +8,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-world-demo
+      app: myapp
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -17,12 +17,12 @@ spec:
   template:
     metadata:
       labels:
-        app: test-project2
+        app: myapp
     spec:
       containers:
       - image: nanajanashia/argocd-app:1.2
         imagePullPolicy: Always
-        name: test-project2
+        name: myapp
         ports:
           - containerPort: 8080
             name: http
