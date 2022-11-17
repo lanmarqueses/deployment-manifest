@@ -12,7 +12,7 @@ metadata:
   name: test-project2-ingress
 spec:
   rules:
-    - host: github.com/lanmarqueses
+    - host: github.com
       http:
         paths:
         - path: /
