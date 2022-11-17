@@ -11,4 +11,4 @@ resources:
   - configmap.yaml
   - deployment.yaml
   - service.yaml
-  - ingress.yaml
+  - test-project2-ingress.yaml
