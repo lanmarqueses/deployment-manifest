@@ -3,8 +3,9 @@ kind: Ingress
 metadata:
   name: test-project2-ingress
 spec:
+  ingressClass: nginx
   rules:
-    - host: google.com
+    - host: www.rolan.com
       http:
         paths:
         - path: /
