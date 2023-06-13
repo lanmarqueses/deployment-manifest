@@ -20,7 +20,7 @@ spec:
         app: test-project
     spec:
       containers:
-      - image: nanajanashia/argocd-app:1.2
+      - image: google.com
         imagePullPolicy: Always
         name: test-project
         ports:
