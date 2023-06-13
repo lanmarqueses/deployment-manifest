@@ -20,7 +20,7 @@ spec:
         app: test-project
     spec:
       containers:
-      - image: google.com
+      - image: 'gcr.io/heptio-images/ks-guestbook-demo:0.1'
         imagePullPolicy: Always
         name: test-project
         ports:
