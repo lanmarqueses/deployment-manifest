@@ -5,10 +5,8 @@ metadata:
   labels:
     app: nginx
 spec:
-  ingressClass: nginx
+  type: LoadBalancer
   ports:
     - port: 80
-      protocol: TCP
-      targetPort: 8080
   selector:
     app: nginx
