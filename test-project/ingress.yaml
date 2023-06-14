@@ -15,5 +15,3 @@ spec:
               name: test-project-svc
               port:
                 number: 80
-              externalIPs:
-              - 127.0.0.10  
