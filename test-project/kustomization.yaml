@@ -4,7 +4,7 @@ kind: Kustomization
 commonLabels:
   app: test-project-demo
 
-namespace: default
+namespace: nginx
 nameSuffix: -default
 
 resources:
