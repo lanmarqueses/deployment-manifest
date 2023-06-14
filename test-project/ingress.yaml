@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClass: nginx
   rules:
-    - host: www.rolan.com
+    - host: www.rolanlocalhost.com
       http:
         paths:
         - path: /
