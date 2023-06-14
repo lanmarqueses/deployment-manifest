@@ -2,36 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-  selector:
-    app: nginx
-  type: LoadBalancer
----
-apiVersion: apps/v1  #Specify the version based on the Kubernetes version that you use. 
-kind: Deployment
-metadata:
-  name: nginx-deploy
   labels:
-    app: nginx
+    app: test-project
 spec:
-  replicas: 2
+  type: LoadBalancer
+  ports:
+    - port: 80
   selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image:  nginx:alpine
-        ports:
-        - containerPort: 80
-        resources:
-          requests:
-            cpu: "2"
-            memory: "4Gi"
+    app: test-project
