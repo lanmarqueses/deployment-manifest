@@ -8,8 +8,6 @@ spec:
     - host: www.rolanlocalhost.com
       http:
         paths:
-        - path: /
-          pathType: Prefix
           backend:
             service:
               name: test-project-svc
