@@ -10,5 +10,4 @@ nameSuffix: -test1
 resources:
 - configmap.yaml
 - deployment.yaml
-- ingress.yaml
 - nginx-service.yaml
