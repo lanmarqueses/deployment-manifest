@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: test-project-ingress
 spec:
-  ingressClass: nginx
+  ingressClassName: nginx
   rules:
     - host: www.rolanlocalhost.com
       http:
