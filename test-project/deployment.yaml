@@ -8,7 +8,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: hello-world-demo
+      app: test-project
   strategy:
     rollingUpdate:
       maxSurge: 1
