@@ -5,7 +5,7 @@ commonLabels:
   app: test-project-demo
 
 namespace: nginx
-nameSuffix: -default
+nameSuffix: -nginx
 
 resources:
 - configmap.yaml
