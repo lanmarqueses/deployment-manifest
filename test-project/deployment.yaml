@@ -20,7 +20,7 @@ spec:
         app: test-project
     spec:
       containers:
-      - image: 'gcr.io/heptio-images/ks-guestbook-demo:0.1'
+      - image: 'public.ecr.aws/u6s0k6c4/rolan-gisd-test:latest'
         imagePullPolicy: Always
         name: test-project
         ports:
