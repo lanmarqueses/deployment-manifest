@@ -25,6 +25,6 @@ spec:
         name: test-project
         ports:
           - containerPort: 8080
-            name: https
+            name: http
             protocol: TCP
         resources: {}
