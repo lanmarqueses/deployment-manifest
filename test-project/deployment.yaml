@@ -9,9 +9,6 @@ spec:
   selector:
     matchLabels:
       app: test-project
-  syncPolicy:
-      automated:
-        selfHeal: true
   strategy:
     rollingUpdate:
       maxSurge: 1
