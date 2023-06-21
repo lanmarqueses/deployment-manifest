@@ -26,7 +26,7 @@ spec:
          - name: ecr-secret
         name: test-project
         ports:
-          - containerPort: 8080
+          - containerPort: 3000
             name: http
             protocol: TCP
         resources: {}
