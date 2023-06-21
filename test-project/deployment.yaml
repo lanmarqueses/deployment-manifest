@@ -23,7 +23,7 @@ spec:
       - image: 'public.ecr.aws/u6s0k6c4/rolan-gisd-test:latest'
         imagePullPolicy: Always
         imagePullSecrets:
-          - name: ecr-secret
+        - name: ecr-secret
         name: test-project
         ports:
           - containerPort: 8080
