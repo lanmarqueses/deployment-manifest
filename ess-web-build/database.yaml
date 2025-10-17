@@ -6,27 +6,49 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels: { app: db }
+    matchLabels:
+      app: db
   template:
-    metadata: { labels: { app: db } }
+    metadata:
+      labels:
+        app: db
     spec:
+      volumes:
+        - name: mssql-data
+          emptyDir: {}
+        - name: backup-volume
+          configMap:
+            name: db-backup
+        - name: restore-script
+          configMap:
+            name: db-restore-script
+      initContainers:
+        - name: restore-db
+          image: mcr.microsoft.com/mssql-tools
+          command: ["/bin/bash", "/restore/restore.sh"]
+          env:
+            - name: sa
+              value: "P@ssw0rd123"
+          volumeMounts:
+            - name: backup-volume
+              mountPath: /var/opt/mssql/backup
+            - name: restore-script
+              mountPath: /restore
       containers:
         - name: sql
           image: mcr.microsoft.com/azure-sql-edge
-          ports: [{ containerPort: 1433 }]
+          ports:
+            - containerPort: 1433
           env:
             - name: ACCEPT_EULA
               value: "Y"
             - name: sa
-              value: "P@ssw0rd123"
-            - name: MSSQL_PID
-              value: "Developer"
+              value: "P@ssw0rd1234"
           volumeMounts:
-            - name: sqldata
-              mountPath: /var/opt/mssql
-      volumes:
-        - name: sqldata
-          emptyDir: {}
+            - name: mssql-data
+              mountPath: /var/opt/mssql/data
+            - name: backup-volume
+              mountPath: /var/opt/mssql/backup
 ---
 apiVersion: v1
 kind: Service
@@ -34,7 +56,8 @@ metadata:
   name: db
   namespace: app
 spec:
-  selector: { app: db }
+  selector:
+    app: db
   ports:
     - port: 1433
       targetPort: 1433
