@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default                       # use "default" unless you made others
   source:
-    repoURL: https://github.com/<your-user>/<your-repo>.git
+    repoURL: https://github.com/lanmarqueses/deployment-manifest.git
     targetRevision: master                 # branch, tag, or commit SHA
     path: k8s                            # folder in repo with manifests or chart
     # --- Optional if using Helm instead of plain YAML ---
