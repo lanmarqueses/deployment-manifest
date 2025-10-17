@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: db }
+  template:
+    metadata: { labels: { app: db } }
+    spec:
+      containers:
+        - name: sql
+          image: mcr.microsoft.com/azure-sql-edge
+          ports: [{ containerPort: 1433 }]
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: sa
+              value: "P@ssw0rd123"
+            - name: MSSQL_PID
+              value: "Developer"
+          volumeMounts:
+            - name: sqldata
+              mountPath: /var/opt/mssql
+      volumes:
+        - name: sqldata
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: app
+spec:
+  selector: { app: db }
+  ports:
+    - port: 1433
+      targetPort: 1433
