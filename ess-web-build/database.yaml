@@ -16,24 +16,6 @@ spec:
       volumes:
         - name: mssql-data
           emptyDir: {}
-        - name: backup-volume
-          configMap:
-            name: db-backup
-        - name: restore-script
-          configMap:
-            name: db-restore-script
-      initContainers:
-        - name: restore-db
-          image: mcr.microsoft.com/mssql-tools
-          command: ["/bin/bash", "/restore/restore.sh"]
-          env:
-            - name: sa
-              value: "P@ssw0rd123"
-          volumeMounts:
-            - name: backup-volume
-              mountPath: /var/opt/mssql/backup
-            - name: restore-script
-              mountPath: /restore
       containers:
         - name: sql
           image: mcr.microsoft.com/azure-sql-edge
@@ -42,13 +24,23 @@ spec:
           env:
             - name: ACCEPT_EULA
               value: "Y"
-            - name: sa
+            - name: MSSQL_SA_PASSWORD
               value: "P@ssw0rd123"
+            - name: MSSQL_PID
+              value: "Developer"
           volumeMounts:
             - name: mssql-data
               mountPath: /var/opt/mssql/data
-            - name: backup-volume
-              mountPath: /var/opt/mssql/backup
+          readinessProbe:
+            tcpSocket:
+              port: 1433
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 1433
+            initialDelaySeconds: 20
+            periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
