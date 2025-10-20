@@ -20,8 +20,4 @@ data:
       location /static/ { try_files $uri =404; }
       location /styles/ { try_files $uri =404; }
       location /utils/  { try_files $uri =404; }
-
-      # Basic types
-      types { text/css css; application/javascript js; }
     }
-
