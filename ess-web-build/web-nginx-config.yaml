@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-nginx-conf
+  namespace: app
+data:
+  default.conf: |
+    server {
+      listen 80;
+      server_name _;
+      root /usr/share/nginx/html;
+      index index.html;
+
+      # Serve SPA: existing files first, else index.html
+      location / {
+        try_files $uri $uri/ /index.html;
+      }
+
+      # Don’t rewrite asset paths to index; 404 if missing
+      location /static/ { try_files $uri =404; }
+      location /styles/ { try_files $uri =404; }
+      location /utils/  { try_files $uri =404; }
+
+      # Basic types
+      types { text/css css; application/javascript js; }
+    }
+
