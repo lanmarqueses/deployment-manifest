@@ -13,6 +13,8 @@ spec:
       labels:
         app: api
     spec:
+      imagePullSecrets:
+        - name: ghcr-login
       containers:
         - name: api
           image: ghcr.io/lanmarqueses/ess-webapi:latest
@@ -22,7 +24,7 @@ spec:
             - name: ASPNETCORE_URLS
               value: "http://0.0.0.0:8080"
             - name: ConnectionStrings__DefaultConnection
-              value: "Server=db,1433;Database=EssDb;User Id=sa;Password=P@ssw0rd1234!;Encrypt=False;TrustServerCertificate=True"
+              value: "Server=localhost,1433;Database=TestDb;User Id=sa;Password=P@ssw0rd123;Encrypt=False;TrustServerCertificate=True"
 ---
 apiVersion: v1
 kind: Service
