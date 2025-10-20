@@ -18,7 +18,7 @@ spec:
       containers:
         - name: web
           image: ghcr.io/lanmarqueses/ess-web:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           readinessProbe:

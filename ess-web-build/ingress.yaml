@@ -18,6 +18,13 @@ spec:
                 name: web
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
     - host: api.localtest.me
       http:
         paths:
