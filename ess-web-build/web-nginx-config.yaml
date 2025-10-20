@@ -10,6 +10,7 @@ data:
       server_name _;
       root /usr/share/nginx/html;
       index index.html;
+      include /etc/nginx/mime.types;
 
       # Serve SPA: existing files first, else index.html
       location / {
