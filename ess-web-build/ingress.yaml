@@ -25,10 +25,24 @@ spec:
                 name: api
                 port:
                   number: 80
+          - path: /swagger
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
     - host: api.localtest.me
       http:
         paths:
           - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
+          - path: /swagger
             pathType: Prefix
             backend:
               service:

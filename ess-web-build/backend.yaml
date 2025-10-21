@@ -25,6 +25,8 @@ spec:
               value: "http://0.0.0.0:8080"
             - name: ConnectionStrings__DefaultConnection
               value: "Server=db,1433;Database=TestDb;User Id=sa;Password=P@ssw0rd123;Encrypt=False;TrustServerCertificate=True"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
           readinessProbe:
             tcpSocket:
               port: 8080
