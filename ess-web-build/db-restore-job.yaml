@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-restore
+  namespace: app
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: restore
+          image: mcr.microsoft.com/mssql-tools
+          command: ["/bin/bash","-lc"]
+          args:
+            - |
+              set -euo pipefail
+              echo "Checking if database ${DB_NAME} exists..."
+              /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P "${SA_PASSWORD}" -Q "SELECT DB_ID('${DB_NAME}')" -h -1 -W | grep -qE '^[0-9]+' && { echo "${DB_NAME} already exists. Skipping restore."; exit 0; }
+
+              echo "Restoring ${DB_NAME} from ${BACKUP_PATH}..."
+              /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P "${SA_PASSWORD}" -Q "
+              RESTORE DATABASE [${DB_NAME}]
+              FROM DISK='${BACKUP_PATH}'
+              WITH MOVE '${DATA_LOGICAL}' TO '/var/opt/mssql/data/${DB_NAME}.mdf',
+                   MOVE '${LOG_LOGICAL}'  TO '/var/opt/mssql/data/${DB_NAME}_log.ldf',
+                   REPLACE;
+              "
+              echo "Restore completed."
+          env:
+            - name: SA_PASSWORD
+              value: "P@ssw0rd123"
+            - name: DB_NAME
+              value: "TestDb"
+            - name: BACKUP_PATH
+              value: "/var/opt/mssql/data/TestDb.bak"
+            - name: DATA_LOGICAL
+              value: "TestDb_10072025"
+            - name: LOG_LOGICAL
+              value: "TestDb_10072025_log"
+

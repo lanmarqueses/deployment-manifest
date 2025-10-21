@@ -15,7 +15,8 @@ spec:
     spec:
       volumes:
         - name: mssql-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: mssql-data
       containers:
         - name: sql
           image: mcr.microsoft.com/azure-sql-edge
@@ -30,7 +31,7 @@ spec:
               value: "Developer"
           volumeMounts:
             - name: mssql-data
-              mountPath: /var/opt/mssql/data
+              mountPath: /var/opt/mssql
           readinessProbe:
             tcpSocket:
               port: 1433
