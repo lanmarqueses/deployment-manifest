@@ -37,7 +37,8 @@ spec:
             claimName: mssql-data
       containers:
         - name: sql
-          image: mcr.microsoft.com/mssql/server:2022-latest #mcr.microsoft.com/azure-sql-edge
+          image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04
+          imagePullPolicy: Always
           ports:
             - containerPort: 1433
           env:

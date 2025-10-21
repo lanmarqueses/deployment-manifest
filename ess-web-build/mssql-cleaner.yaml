@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mssql-cleaner
+  namespace: app
+spec:
+  restartPolicy: Never
+  containers:
+  - name: cleaner
+    image: busybox:1.36
+    command: ["sh","-lc","rm -rf /mnt/* && echo 'PVC wiped' && sleep 1"]
+    volumeMounts:
+    - name: mssql-data
+      mountPath: /mnt
+  volumes:
+  - name: mssql-data
+    persistentVolumeClaim:
+      claimName: mssql-data
