@@ -21,7 +21,7 @@ spec:
             name: web-nginx-conf
       containers:
         - name: web
-          image: ghcr.io/lanmarqueses/ess-web:latest
+          image: ghcr.io/lanmarqueses/ess-web:v0.1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 80
