@@ -13,6 +13,8 @@ spec:
       labels:
         app: db
     spec:
+      securityContext:
+        fsGroup: 10001
       volumes:
         - name: mssql-data
           persistentVolumeClaim:
