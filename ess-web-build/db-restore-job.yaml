@@ -18,14 +18,37 @@ spec:
               echo "Checking if database ${DB_NAME} exists..."
               /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P "${SA_PASSWORD}" -Q "SELECT DB_ID('${DB_NAME}')" -h -1 -W | grep -qE '^[0-9]+' && { echo "${DB_NAME} already exists. Skipping restore."; exit 0; }
 
-              echo "Restoring ${DB_NAME} from ${BACKUP_PATH}..."
-              /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P "${SA_PASSWORD}" -Q "
-              RESTORE DATABASE [${DB_NAME}]
-              FROM DISK='${BACKUP_PATH}'
-              WITH MOVE '${DATA_LOGICAL}' TO '/var/opt/mssql/data/${DB_NAME}.mdf',
-                   MOVE '${LOG_LOGICAL}'  TO '/var/opt/mssql/data/${DB_NAME}_log.ldf',
-                   REPLACE;
-              "
+              echo "Generating dynamic restore script..."
+              cat >/tmp/restore.sql <<EOF
+              DECLARE @backup NVARCHAR(4000) = N'${BACKUP_PATH}';
+              DECLARE @db     NVARCHAR(128)  = N'${DB_NAME}';
+              DECLARE @dataLogical NVARCHAR(128);
+              DECLARE @logLogical  NVARCHAR(128);
+
+              IF OBJECT_ID('tempdb..#files') IS NOT NULL DROP TABLE #files;
+              CREATE TABLE #files (
+                  LogicalName NVARCHAR(128), PhysicalName NVARCHAR(260), Type CHAR(1), FileGroupName NVARCHAR(128),
+                  Size NUMERIC(20,0), MaxSize NUMERIC(20,0), FileID BIGINT, CreateLSN NUMERIC(25,0), DropLSN NUMERIC(25,0) NULL,
+                  UniqueID UNIQUEIDENTIFIER, ReadOnlyLSN NUMERIC(25,0) NULL, ReadWriteLSN NUMERIC(25,0) NULL,
+                  BackupSizeInBytes BIGINT, SourceBlockSize INT, FileGroupID INT, LogGroupGUID UNIQUEIDENTIFIER NULL,
+                  DifferentialBaseLSN NUMERIC(25,0) NULL, DifferentialBaseGUID UNIQUEIDENTIFIER NULL,
+                  IsReadOnly BIT, IsPresent BIT, TDEThumbprint VARBINARY(32) NULL, SnapshotURL NVARCHAR(360) NULL
+              );
+
+              INSERT #files EXEC('RESTORE FILELISTONLY FROM DISK = ''' + @backup + '''');
+              SELECT @dataLogical = LogicalName FROM #files WHERE Type='D';
+              SELECT @logLogical  = LogicalName FROM #files WHERE Type='L';
+
+              DECLARE @sql NVARCHAR(MAX) = N'RESTORE DATABASE [' + @db + N'] FROM DISK = ''' + @backup + N'''
+                WITH MOVE ''' + @dataLogical + N''' TO ''/var/opt/mssql/data/' + @db + N'.mdf'',
+                     MOVE ''' + @logLogical  + N''' TO ''/var/opt/mssql/data/' + @db + N'_log.ldf'', REPLACE;';
+              PRINT @sql;
+              EXEC(@sql);
+              GO
+              EOF
+
+              echo "Running restore..."
+              /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P "${SA_PASSWORD}" -i /tmp/restore.sql
               echo "Restore completed."
           env:
             - name: SA_PASSWORD
@@ -34,8 +57,3 @@ spec:
               value: "TestDb"
             - name: BACKUP_PATH
               value: "/var/opt/mssql/data/TestDb.bak"
-            - name: DATA_LOGICAL
-              value: "TestDb_10072025"
-            - name: LOG_LOGICAL
-              value: "TestDb_10072025_log"
-
